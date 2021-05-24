@@ -17,7 +17,7 @@
     <ul>
       <li><a href="#" target="_blank" rel="noopener"><span>Product Management </span>Femi </a></li>
       <li><a href="#" target="_blank" rel="noopener"><span>Design </span>Jose</a></li>
-      <li><a href="#" target="_blank" rel="noopener"><span>Developer </span>Chris</a></li>
+      <li><a href="#" target="_blank" rel="noopener"><span>Development </span>Chris</a></li>
     </ul>
   </div>
 </template>

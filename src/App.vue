@@ -1,17 +1,24 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img height="50" alt="WalLit Wise logo" class="logo" src="./assets/logo.svg">
+    <img height="250" alt="WalLit Wise logo" src="./assets/logo.svg">
+    <MainView msg="Welcome to WalLit Wise"/>
+    <SavingsCalculator props='' style="visibility: hidden;" />
+    <FinancialTips props='' style="visibility: hidden;" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MainView from './components/MainView.vue'
+import SavingsCalculator from './components/SavingsCalculator.vue'
+import FinancialTips from './components/FinancialTips.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MainView,
+    SavingsCalculator,
+    FinancialTips
   }
 }
 </script>
@@ -24,5 +31,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.logo {
+  position: absolute;
+  top: 0.5%;
+  left: 0.5%;
+  margin: 0;
+  padding: 0;
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
-    <div class="tips">
-        <h1>Our Financial Resources</h1>
-    </div>
+    <v-card class="tips">
+        <v-card-title>Financial Tips</v-card-title>
+        <v-card-text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi quae a vel impedit facere voluptate repellendus nam dolore error illum enim harum vero quidem aperiam, cumque quis obcaecati repellat. Cum?</v-card-text>
+    </v-card>
+    
 </template>
 
 

@@ -5,6 +5,7 @@
     <MainView msg="Welcome to WalLit Wise"/>
     <SavingsCalculator props='' style="visibility: hidden;" />
     <FinancialTips props='' style="visibility: hidden;" />
+    <Assessment props='' style="visibility: hidden;" />
   </div>
 </template>
 
@@ -12,13 +13,15 @@
 import MainView from './components/MainView.vue'
 import SavingsCalculator from './components/SavingsCalculator.vue'
 import FinancialTips from './components/FinancialTips.vue'
+import Assessment from './components/Assessment.vue'
 
 export default {
   name: 'App',
   components: {
     MainView,
     SavingsCalculator,
-    FinancialTips
+    FinancialTips,
+    Assessment
   }
 }
 </script>

@@ -1,34 +1,49 @@
 <template>
   <v-app>
     <v-main>
-      <h1>{{ msg }}</h1>
-      
-      <h3>Financial Assessment</h3>
-      <ul>
-        <AssessmentQuestions />
-      </ul>
-
-      <h3>Calculator</h3>
-
-      <h3>Financial Resources</h3>
-
-
-      <h3>Team Members</h3>
-      <ul>
-        <li><a href="#" target="_blank" rel="noopener"><span>Product Management </span>Femi </a></li>
-        <li><a href="#" target="_blank" rel="noopener"><span>Design </span>Jose</a></li>
-        <li><a href="#" target="_blank" rel="noopener"><span>Development </span>Chris</a></li>
-      </ul>
+      <v-container fixed class='justify-center'>
+        <img alt="WalLit Wise logo" src="../assets/WalLitWise.png">
+        <h1 v-if="!visible" class="mb-8">{{msg}}</h1>
+        <h2 v-if="visible">Let us help you save</h2>
+        <v-btn primary @click="clickForVisible" v-if="!visible" class="mt-4">Proceed</v-btn>
+        <SavingsCalculator :parentData="parentData" v-on:childToParent="onChildClick" v-model="results" v-if="isVisible" />
+        <SavingResults :parentData="parentData" v-if="resultFromChild"/>
+      </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import SavingsCalculator from './SavingsCalculator.vue'
+import SavingResults from './SavingResults.vue'
+
 export default {
   name: 'main',
   props: {
-    msg: String
-  }
+    msg: String,
+  },
+  components: {
+    SavingsCalculator,
+    SavingResults
+  },
+  data () {
+    return {
+      visible: false,
+      isVisible: false,
+      // years: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      // goals: ['Retirement', 'Investment', 'Buy a Home', 'Buy a Car', 'Emergency Savings', 'Big Purchase']
+    }
+  },
+  methods: {
+    onChildClick (value) {
+      this.isVisible = !this.isVisible
+      this.resultFromChild = value
+    },
+    clickForVisible () {
+      this.visible = !this.visible
+      this.isVisible = !this.isVisible
+    }
+  },
 }
 </script>
 

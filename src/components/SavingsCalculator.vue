@@ -1,24 +1,118 @@
 <template>
-    <v-card class="calculator">
-        <v-card-title align="center" justify="center">
-            WalLitWise
-        </v-card-title>
-        <v-list-item two-line>
-            <v-list-item-content>
-                <v-list-item-title class="headline">
-                    Calculator Savings Tool
-                </v-list-item-title>
-                <v-list-item-subtitle class="text-bold">Estimate your savings</v-list-item-subtitle>
-            </v-list-item-content>
-        </v-list-item>
+    <v-card class="calculator justify-center">
+        <v-form>
+            <v-input>
+                <v-list-item>
+                    <v-list-item-content fluid>
+                        <v-list-item-title class="headline text-center">
+                            Calculator Savings Tool
+                        </v-list-item-title>
+                        <v-list-item-subtitle class="text-bold text-center my-6">Estimate your savings</v-list-item-subtitle>
+                        <v-row>
+                            <!-- ***********SAVING GOAL NEEDS  PROPER STYLING UNFINISHED********** -->
+                            <v-list-item>Saving goal:</v-list-item>
+                            <v-select
+                            :items="goals"
+                            v-model="goal"
+                            dense
+                            solo
+                            label="Select One"
+                            style="max-width=80%;"
+                            ></v-select>
+
+                            <v-list-item>Contribution amount:</v-list-item>
+                            <v-text-field
+                                :id="contributionAmount"
+                                value="0"
+                                prepend-inner="$"
+                                hint="Max $500"
+                                v-model="contributionAmount"
+                                type="number"
+                            ></v-text-field>
+                        </v-row>
+                        <v-list-item>Contribution Frequency:</v-list-item>
+                        <v-radio-group v-model="picked">
+                            <v-row two-line class="mx-auto">
+                                <v-col>
+                                <v-radio label="Daily" id="daily" v-bind:value="365">
+                                    <!-- <template v-slot:value></template> -->
+                                </v-radio>
+                                <v-radio label="Weekly" id="weekly" v-bind:value="52">
+                                    <!-- <template v-slot:value></template> -->
+                                </v-radio>
+
+                                </v-col>
+                                <v-col>
+                                <v-radio label="Bi-Weekly" id="biweekly" v-bind:value="104">
+                                    <!-- <template v-slot:value></template> -->
+                                </v-radio>
+                                <v-radio label="Monthly" id="monthly" v-bind:value="12">
+                                    <!-- <template v-slot:value></template> -->
+                                </v-radio>
+
+                                </v-col>
+                            </v-row>
+                        </v-radio-group>
+                        
+                        <!-- Cannot figure out why spacing is messed up here -->
+                        <v-list-item>Years of contribution</v-list-item>
+                        <!-- need to finish validation rule -->
+                        <v-row>
+                            <v-text-field :id="contributionYears" v-model="contributionYears" type="number"></v-text-field>                        
+                            <v-list-item-subtitle>Max: 10 years</v-list-item-subtitle>
+                            <v-btn v-if="!isVisible" v-on:keyup="emitToParent" id="calculateBtn"> ${{result}}</v-btn>
+                        </v-row>
+
+                        <!-- button needs resizing -->
+                    </v-list-item-content>
+                </v-list-item>
+            </v-input>
+        </v-form>
     </v-card>
 </template>
 
 <script>
-export default {
-  name: 'calculator',
-  props: {
-    msg: String
-  }
-}
+    export default {
+        data: () => ({
+            isVisible: false,
+            goals: ['Retirement', 'Investment', 'Buy a Home', 'Buy a Car', 'Emergency Savings', 'Big Purchase'],
+            picked: 0,
+            contributionYears: 0,
+            contributionAmount: 0,
+            selectedGoal: ''
+        }),
+        computed: {
+            // having issues with component rendering when this formula is active
+            result: function () {
+                return this.picked * this.contributionYears * this.contributionAmount
+            },
+            goal: function () {
+                return this.goals.selected
+            }
+        },
+        methods: {
+            emitToParent () {
+                this.isVisible = !this.isVisible
+                this.$emit('childToParent', this.result)
+            },
+            // showResults () {
+            //     console.log(this.picked + ' ' + this.contributionYears + ' ' + this.contributionAmount)
+            //     this.result = (this.picked * this.contributionYears * this.contributionAmount)
+            // }
+        }
+    }
 </script>
+
+<style scoped>
+.calculator {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #C4C4C4;
+}
+
+#calculateBtn {
+    margin: 0 auto;
+    max-width: 45%;
+}
+
+</style>

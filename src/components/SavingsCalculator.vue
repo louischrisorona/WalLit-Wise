@@ -17,7 +17,6 @@
                             dense
                             solo
                             label="Select One"
-                            style="max-width=80%;"
                             ></v-select>
 
                             <v-list-item>Contribution amount:</v-list-item>
@@ -74,12 +73,12 @@
 <script>
     export default {
         data: () => ({
-            isVisible: false,
-            goals: ['Retirement', 'Investment', 'Buy a Home', 'Buy a Car', 'Emergency Savings', 'Big Purchase'],
-            picked: 0,
-            contributionYears: 0,
-            contributionAmount: 0,
-            selectedGoal: ''
+            // isVisible: false,
+            // goals: ['Retirement', 'Investment', 'Buy a Home', 'Buy a Car', 'Emergency Savings', 'Big Purchase'],
+            // picked: 0,
+            // contributionYears: 0,
+            // contributionAmount: 0,
+            // selectedGoal: ''
         }),
         computed: {
             // having issues with component rendering when this formula is active
@@ -87,7 +86,7 @@
                 return this.picked * this.contributionYears * this.contributionAmount
             },
             goal: function () {
-                return this.goals.selected
+                return this.$store.state.goals.selected
             }
         },
         methods: {

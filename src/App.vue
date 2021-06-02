@@ -16,6 +16,7 @@ import MainView from './components/MainView.vue'
 
 export default {
   name: 'App',
+  store,
   components: {
     MainView,
     // SavingsCalculator,

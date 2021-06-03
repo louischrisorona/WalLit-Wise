@@ -31,7 +31,7 @@
                         </v-row>
                         <v-list-item>Contribution Frequency:</v-list-item>
                         <v-radio-group v-model="picked">
-                            <v-row two-line class="mx-auto">
+                            <v-row two-line class="mx-auto radio-selection">
                                 <v-col>
                                 <v-radio label="Daily" id="daily" v-bind:value="365">
                                     <!-- <template v-slot:value></template> -->
@@ -73,14 +73,10 @@
 <script>
     export default {
         data: () => ({
-            // isVisible: false,
-            // goals: ['Retirement', 'Investment', 'Buy a Home', 'Buy a Car', 'Emergency Savings', 'Big Purchase'],
-            // picked: 0,
-            // contributionYears: 0,
-            // contributionAmount: 0,
-            // selectedGoal: ''
+            //need to fix data if not being used
         }),
         computed: {
+            //computed will be used to pull state
             // having issues with component rendering when this formula is active
             result: function () {
                 return this.picked * this.contributionYears * this.contributionAmount
@@ -107,6 +103,12 @@
     max-width: 500px;
     margin: 0 auto;
     background-color: #C4C4C4;
+}
+
+.radio-selection {
+    margin: 0 auto;
+    padding: auto;
+    justify-content: space-between;
 }
 
 #calculateBtn {

@@ -30,8 +30,6 @@ export default {
     return {
       visible: false,
       isVisible: false,
-      // years: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      // goals: ['Retirement', 'Investment', 'Buy a Home', 'Buy a Car', 'Emergency Savings', 'Big Purchase']
     }
   },
   methods: {

@@ -19,13 +19,8 @@
                             style="max-width=80%;"
                             ></v-select>
 
-                            <v-list-item>Contribution amount:</v-list-item>
-                            <v-text-field
-                                :id="contributionAmount"
-                                value="0"
-                                prepend-inner="$"
-                                hint="Max $500"
-                            ></v-text-field>
+                            <v-list-item>Goal: </v-list-item>
+                            
                         </v-row>
                         <v-list-item>Contribution Frequency:</v-list-item>
                         <v-radio-group v-model="radios">
@@ -63,7 +58,7 @@
 
 <script>
     export default {
-        
+
     }
 </script>
 

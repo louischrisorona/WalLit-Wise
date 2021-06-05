@@ -10,6 +10,7 @@ export const store = new Vuex.store({
         contributionAmount: 0,
         selectedGoal: '',
         picked: 0,
+        result: 0,
         goals: [
             {text: 'Retirement', selected: false},
             {text: 'Investment', selected: false},
@@ -20,15 +21,30 @@ export const store = new Vuex.store({
         ]
     },
     
-
     mutations: {
-        
+        setResult (state, { payload }) {
+            state.result = { payload }
+        }
     },
 
     actions: {
         calculateResult (state) {
-            this.state.contributionYears * this.state.contributionAmount * this.picked
+            // this.state.contributionYears * this.state.contributionAmount * this.picked
+            const result = state.contributionYears * state.contributionAmount * state.picked
+            store.commit('setResult', result)
         }
+    },
+
+    getters: {
+        getGoals: () => this.state.goals,
+        getContributionAmount: () => this.state.contributionAmount,
+        getContributionYears: () => this.state.contributionYears,
+        getContributionFrequency: () => this.state.picked,
+        getResult: () => this.state.result
+    },
+
+    methods: {
+        
     }
 })
 

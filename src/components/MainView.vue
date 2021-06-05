@@ -6,8 +6,8 @@
         <h1 v-if="!visible" class="mb-8">{{msg}}</h1>
         <h2 v-if="visible">Let us help you save</h2>
         <v-btn primary @click="clickForVisible" v-if="!visible" class="mt-4">Proceed</v-btn>
-        <SavingsCalculator :parentData="parentData" v-on:childToParent="onChildClick" v-model="results" v-if="isVisible" />
-        <SavingResults :parentData="parentData" v-if="resultFromChild"/>
+        <SavingsCalculator v-if="isVisible" />
+        <SavingResults v-if="resultAvailable"/>
       </v-container>
     </v-main>
   </v-app>
@@ -30,7 +30,11 @@ export default {
     return {
       visible: false,
       isVisible: false,
+      resultAvailable: false,
     }
+  },
+  computed: {
+    
   },
   methods: {
     onChildClick (value) {

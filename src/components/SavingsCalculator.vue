@@ -9,11 +9,10 @@
                         </v-list-item-title>
                         <v-list-item-subtitle class="text-bold text-center my-6">Estimate your savings</v-list-item-subtitle>
                         <v-row>
-                            <!-- ***********SAVING GOAL NEEDS  PROPER STYLING UNFINISHED********** -->
+                            
                             <v-list-item>Saving goal:</v-list-item>
                             <v-select
-                            :items="goals"
-                            v-model="goal"
+                            v-model="goals"
                             dense
                             solo
                             label="Select One"
@@ -53,16 +52,13 @@
                             </v-row>
                         </v-radio-group>
                         
-                        <!-- Cannot figure out why spacing is messed up here -->
                         <v-list-item>Years of contribution</v-list-item>
-                        <!-- need to finish validation rule -->
+                        
                         <v-row>
                             <v-text-field :id="contributionYears" v-model="contributionYears" type="number"></v-text-field>                        
                             <v-list-item-subtitle>Max: 10 years</v-list-item-subtitle>
-                            <v-btn v-if="!isVisible" v-on:keyup="emitToParent" id="calculateBtn"> ${{result}}</v-btn>
+                            <v-btn>Calculate</v-btn>
                         </v-row>
-
-                        <!-- button needs resizing -->
                     </v-list-item-content>
                 </v-list-item>
             </v-input>
@@ -71,31 +67,24 @@
 </template>
 
 <script>
-    export default {
-        data: () => ({
-            //need to fix data if not being used
-        }),
-        computed: {
-            //computed will be used to pull state
-            // having issues with component rendering when this formula is active
-            result: function () {
-                return this.picked * this.contributionYears * this.contributionAmount
-            },
-            goal: function () {
-                return this.$store.state.goals.selected
-            }
-        },
-        methods: {
-            emitToParent () {
-                this.isVisible = !this.isVisible
-                this.$emit('childToParent', this.result)
-            },
-            // showResults () {
-            //     console.log(this.picked + ' ' + this.contributionYears + ' ' + this.contributionAmount)
-            //     this.result = (this.picked * this.contributionYears * this.contributionAmount)
-            // }
-        }
+
+export default {
+    data: () => ({
+        goals: [{text: 'Retirement', selected: false},
+            {text: 'Investment', selected: false},
+            {text: 'Buy a Home', selected: false},
+            {text: 'Buy a Car', selected: false},
+            {text: 'Emergency Savings', selected: false},
+            {text: 'Big Purchase', selected: false}]
+    }),
+    computed: {
+           
     }
+    ,
+    methods: {
+        
+    }
+}
 </script>
 
 <style scoped>

@@ -1,31 +1,17 @@
 <template>
   <div id="app">
-    <!-- <img alt="WalLit Wise logo" src="./assets/WalLitWise.png"> -->
     <MainView msg="Welcome to WalLitWise" />
-    <!-- <SavingsCalculator style="visibility: visible" /> -->
-    <!-- <FinancialTips props='' style="visibility: hidden;" /> -->
-    <!-- <Assessment props='' style="visibility: hidden;" /> -->
   </div>
 </template>
 
 <script>
 import MainView from './components/MainView.vue'
-// import SavingsCalculator from './components/SavingsCalculator.vue'
-// import FinancialTips from './components/FinancialTips.vue'
-// import Assessment from './components/Assessment.vue'
 
 export default {
   name: 'App',
-  store,
   components: {
     MainView,
-    // SavingsCalculator,
-    // FinancialTips,
-    // Assessment
   },
-  data: () => ({
-    years: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  })
 }
 </script>
 

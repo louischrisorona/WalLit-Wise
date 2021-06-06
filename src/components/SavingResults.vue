@@ -15,7 +15,7 @@
                     <v-list-item>
                         Breakdown 
                         <v-icon @click="toggleResults" v-if="!expanded">mdi-chevron-down</v-icon>
-                        <v-else><v-icon @click="toggleResults">mdi-chevron-up</v-icon></v-else>
+                        <v-icon @click="toggleResults" v-else>mdi-chevron-up</v-icon>
                     </v-list-item>
                     <v-list-item-group v-if="expanded">
                         <v-list-item>Contribution Amount: <span class="text-decoration-underline">{{ getContributionAmount }}</span></v-list-item>

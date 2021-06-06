@@ -1,6 +1,6 @@
 <template>
     <v-container fixed>
-    <v-card class="calculator justify-center">
+    <v-card v-if="!visible" class="calculator justify-center">
         <v-form>
             <v-input>
                 <v-list-item>
@@ -65,6 +65,7 @@
             </v-input>
         </v-form>
     </v-card>
+
 <!-- Card --- mock component for results -->
     <v-card v-if="visible" class="results justify-center">
         <v-list-item>
@@ -74,12 +75,14 @@
                 </v-list-item-title>
                 
                 <v-row justify="space-around">
-                    <v-avatar>
+                    <v-avatar ma-auto>
                         <img src="../assets/retirement.jpg" alt="couple hiking through retirement">
                     </v-avatar>
                     <v-list-item-subtitle><a href="#">EDIT</a></v-list-item-subtitle>
-                    <v-list-item>Goal: {{ selectedGoal }} </v-list-item>
-                    <v-list-item>
+                    <v-list-item>Goal: {{  }} </v-list-item>
+                    <!-- Commenting out the breakdown section 
+                        
+                        <v-list-item>
                         Breakdown 
                         <v-icon @click="toggleResults" v-if="!expanded">mdi-chevron-down</v-icon>
                         <v-else><v-icon @click="toggleResults">mdi-chevron-up</v-icon></v-else>
@@ -88,11 +91,12 @@
                         <v-list-item>Contribution Amount: <span class="text-decoration-underline">{{ getContributionAmount }}</span></v-list-item>
                         <v-list-item>Contribution Frequency: <span class="text-decoration-underline">{{ getContributionFrequency }}</span></v-list-item>
                         <v-list-item>Years of Contribution: <span class="text-decoration-underline">{{ getContributionYears }}</span></v-list-item>
-                    </v-list-item-group>
+                    </v-list-item-group> -->
+
                 </v-row>
                 
                 <v-list-item>
-                    <h2>${{ getResult }}</h2>
+                    <h2>${{ result }}</h2>
                 </v-list-item>
 
                 <v-list-item>Estimate Savings</v-list-item>
@@ -124,14 +128,19 @@ export default {
             'Emergency Savings', 
             'Big Purchase'],
         visible: false,
-        contributionAmount: 0,
-        contributionYears: 0,
+        contributionAmount: '',
+        contributionYears: '',
         picked: '',
+        result: 0
     }),
     computed: {
-        result: this.contributionAmount * this.contributionYears * this.picked
+        
     },
     methods: {
+        calculateResults() {
+            const calcResult = this.contributionAmount * this.contributionYears * this.picked
+            this.result = calcResult
+        },
         toggleView() {
             this.visible = !this.visible
         },

@@ -14,42 +14,39 @@
                             <v-list-item>Saving goal:</v-list-item>
                             <v-select
                             :items="goals"
+                            :value="goals.value"
+                            v-model="selectedGoal"
                             dense
                             solo
                             label="Select One"
+                            class="px-4"
                             ></v-select>
 
                             <v-list-item>Contribution Amount:</v-list-item>
                             <v-text-field
                                 value="0"
                                 prepend-inner="$"
-                                hint="Max $500"
                                 v-model="contributionAmount"
                                 type="number" 
                                 min="1" 
                                 max="500"
+                                class="px-4"
                             ></v-text-field>
+                            
+                            Max $500
                         </v-row>
                         <v-list-item>Contribution Frequency:</v-list-item>
-                        <v-radio-group justify="space-between" v-model="picked">
+                        <v-radio-group class="" v-model='picked'>
                             <v-row two-line class="mx-auto radio-selection">
                                 <v-col>
-                                <v-radio label="Daily" id="daily" v-bind:value="365">
-                                    <!-- <template v-slot:value></template> -->
-                                </v-radio>
-                                <v-radio label="Weekly" id="weekly" v-bind:value="52">
-                                    <!-- <template v-slot:value></template> -->
-                                </v-radio>
-
+                                    <v-radio label="Daily" id="daily" value='365'></v-radio>
+                                    <!-- v-bind:value="365" -->
+                                    <v-radio label="Weekly" id="weekly" value='52'></v-radio>
                                 </v-col>
+                                
                                 <v-col>
-                                <v-radio label="Bi-Weekly" id="biweekly" v-bind:value="104">
-                                    <!-- <template v-slot:value></template> -->
-                                </v-radio>
-                                <v-radio label="Monthly" id="monthly" v-bind:value="12">
-                                    <!-- <template v-slot:value></template> -->
-                                </v-radio>
-
+                                    <v-radio label="Bi-Weekly" id="biweekly" value='104'></v-radio>
+                                    <v-radio label="Monthly" id="monthly" value='12'></v-radio>
                                 </v-col>
                             </v-row>
                         </v-radio-group>
@@ -74,29 +71,29 @@
                     Results
                 </v-list-item-title>
                 
-                <v-row justify="space-around">
-                    <v-avatar ma-auto>
+                <v-row justify="space-around" class="ma-2">
+                    <v-avatar ma-auto size=125>
                         <img src="../assets/retirement.jpg" alt="couple hiking through retirement">
                     </v-avatar>
-                    <v-list-item-subtitle><a href="#">EDIT</a></v-list-item-subtitle>
-                    <v-list-item>Goal: {{  }} </v-list-item>
-                    <!-- Commenting out the breakdown section 
+                    <v-list-item-subtitle class="mt-3"><a href="#">EDIT</a></v-list-item-subtitle>
+                </v-row>
+                <v-row class="mx-auto" justify="center">
+                    <h2 class="headline"><strong>Goal: {{ selectedGoal }} </strong></h2>
                         
-                        <v-list-item>
-                        Breakdown 
-                        <v-icon @click="toggleResults" v-if="!expanded">mdi-chevron-down</v-icon>
-                        <v-else><v-icon @click="toggleResults">mdi-chevron-up</v-icon></v-else>
-                    </v-list-item>
-                    <v-list-item-group v-if="expanded">
-                        <v-list-item>Contribution Amount: <span class="text-decoration-underline">{{ getContributionAmount }}</span></v-list-item>
-                        <v-list-item>Contribution Frequency: <span class="text-decoration-underline">{{ getContributionFrequency }}</span></v-list-item>
-                        <v-list-item>Years of Contribution: <span class="text-decoration-underline">{{ getContributionYears }}</span></v-list-item>
-                    </v-list-item-group> -->
+                    <h4 class="ma-2 pa-2">
+                        Breakdown
+                    </h4>
+                    
+                    <v-list-item-group class="">
+                        <v-list-item>Contribution Amount: <span class="text-decoration-underline">{{ contributionAmount }}</span></v-list-item>
+                        <v-list-item>Contribution Frequency: <span class="text-decoration-underline">x {{ picked }} ({{ frequency }})</span></v-list-item>
+                        <v-list-item>Years of Contribution: <span class="text-decoration-underline">x {{ contributionYears }}</span></v-list-item>
+                    </v-list-item-group>
 
                 </v-row>
                 
                 <v-list-item>
-                    <h2>${{ result }}</h2>
+                    <h2 class="headline">${{ this.result }}</h2>
                 </v-list-item>
 
                 <v-list-item>Estimate Savings</v-list-item>
@@ -121,20 +118,29 @@
 
 export default {
     data: () => ({
-        goals: ['Retirement', 
-            'Investment', 
-            'Buy a Home', 
-            'Buy a Car', 
-            'Emergency Savings', 
-            'Big Purchase'],
+        goals: [
+            {text: 'Retirement', value: 'Retirement'}, 
+            {text: 'Investment', value: 'Investment'}, 
+            {text: 'Buy a Home', value: 'Investment'}, 
+            {text: 'Buy a Car', value: 'Buy a Car'}, 
+            {text: 'Emergency Savings', value: 'Emergency Savings'}, 
+            {text: 'Big Purchase', value: 'Big Purchase'}
+            ],
         visible: false,
         contributionAmount: '',
         contributionYears: '',
         picked: '',
+        selectedGoal: '',
         result: 0
     }),
     computed: {
-        
+        frequency() {
+            if(this.picked == 12) return 'Monthly'
+            if(this.picked == 52) return 'Weekly'
+            if(this.picked == 104) return 'Bi-Weekly'
+            if(this.picked == 365) return 'Daily'
+            else return ''
+        }
     },
     methods: {
         calculateResults() {
@@ -143,10 +149,12 @@ export default {
         },
         toggleView() {
             this.visible = !this.visible
+            this.calculateResults()
         },
         loadResources() {
 
-        }
+        },
+        
     }
 }
 </script>

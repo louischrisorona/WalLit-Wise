@@ -1,12 +1,12 @@
 <template>
   <v-app>
     <v-main>
-      <v-container fixed class='justify-center'>
+      <v-container fixed class='main-card justify-center' secondary>
         <img alt="WalLit Wise logo" src="../assets/WalLitWise.png">
         <h1 class="mb-8">Let us help you save</h1>
         <v-card v-if="!visible">
-          <v-list-item>Savings Calculator</v-list-item>
-          <v-btn primary @click="clickForVisible" class="mt-4">Proceed</v-btn>
+          <v-list-item class="mx-auto">Savings Calculator</v-list-item>
+          <v-btn primary @click="clickForVisible" class="ma-4">Proceed</v-btn>
         </v-card>
         <SavingsCalculator v-if="isVisible" />
       </v-container>
@@ -54,4 +54,11 @@ li {
 a {
   color: #42b983;
 }
+
+.main-card {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #C4C4C4;
+}
+
 </style>

@@ -1,4 +1,5 @@
 <template>
+    <v-container fixed>
     <v-card class="calculator justify-center">
         <v-form>
             <v-input>
@@ -12,24 +13,25 @@
                             
                             <v-list-item>Saving goal:</v-list-item>
                             <v-select
-                            v-model="goals"
+                            :items="goals"
                             dense
                             solo
                             label="Select One"
                             ></v-select>
 
-                            <v-list-item>Contribution amount:</v-list-item>
+                            <v-list-item>Contribution Amount:</v-list-item>
                             <v-text-field
-                                :id="contributionAmount"
                                 value="0"
                                 prepend-inner="$"
                                 hint="Max $500"
                                 v-model="contributionAmount"
-                                type="number"
+                                type="number" 
+                                min="1" 
+                                max="500"
                             ></v-text-field>
                         </v-row>
                         <v-list-item>Contribution Frequency:</v-list-item>
-                        <v-radio-group v-model="picked">
+                        <v-radio-group justify="space-between" v-model="picked">
                             <v-row two-line class="mx-auto radio-selection">
                                 <v-col>
                                 <v-radio label="Daily" id="daily" v-bind:value="365">
@@ -53,36 +55,89 @@
                         </v-radio-group>
                         
                         <v-list-item>Years of contribution</v-list-item>
-                        
                         <v-row>
-                            <v-text-field :id="contributionYears" v-model="contributionYears" type="number"></v-text-field>                        
-                            <v-list-item-subtitle>Max: 10 years</v-list-item-subtitle>
-                            <v-btn>Calculate</v-btn>
+                            <v-text-field v-model="contributionYears" type="number" min="1" max="10"></v-text-field>                        
+                            <v-list-item-subtitle class="px-4">Max: 10 years</v-list-item-subtitle>
+                            <v-btn @click="toggleView">Calculate</v-btn>
                         </v-row>
                     </v-list-item-content>
                 </v-list-item>
             </v-input>
         </v-form>
     </v-card>
+<!-- Card --- mock component for results -->
+    <v-card v-if="visible" class="results justify-center">
+        <v-list-item>
+            <v-list-item-content fluid>
+                <v-list-item-title class="headline text-center">
+                    Results
+                </v-list-item-title>
+                
+                <v-row justify="space-around">
+                    <v-avatar>
+                        <img src="../assets/retirement.jpg" alt="couple hiking through retirement">
+                    </v-avatar>
+                    <v-list-item-subtitle><a href="#">EDIT</a></v-list-item-subtitle>
+                    <v-list-item>Goal: {{ selectedGoal }} </v-list-item>
+                    <v-list-item>
+                        Breakdown 
+                        <v-icon @click="toggleResults" v-if="!expanded">mdi-chevron-down</v-icon>
+                        <v-else><v-icon @click="toggleResults">mdi-chevron-up</v-icon></v-else>
+                    </v-list-item>
+                    <v-list-item-group v-if="expanded">
+                        <v-list-item>Contribution Amount: <span class="text-decoration-underline">{{ getContributionAmount }}</span></v-list-item>
+                        <v-list-item>Contribution Frequency: <span class="text-decoration-underline">{{ getContributionFrequency }}</span></v-list-item>
+                        <v-list-item>Years of Contribution: <span class="text-decoration-underline">{{ getContributionYears }}</span></v-list-item>
+                    </v-list-item-group>
+                </v-row>
+                
+                <v-list-item>
+                    <h2>${{ getResult }}</h2>
+                </v-list-item>
+
+                <v-list-item>Estimate Savings</v-list-item>
+
+                <v-list-item>Financial education resources to help you jump start your savings</v-list-item>
+
+                <v-btn @click="loadResources">LEARN MORE</v-btn>
+
+            </v-list-item-content>
+        </v-list-item>
+    </v-card>
+
+<!-- Card --- mock component for learning resources/links -->
+    <v-card v-if="visible">
+        <!-- add links here -->
+    </v-card>
+
+    </v-container>
 </template>
 
 <script>
 
 export default {
     data: () => ({
-        goals: [{text: 'Retirement', selected: false},
-            {text: 'Investment', selected: false},
-            {text: 'Buy a Home', selected: false},
-            {text: 'Buy a Car', selected: false},
-            {text: 'Emergency Savings', selected: false},
-            {text: 'Big Purchase', selected: false}]
+        goals: ['Retirement', 
+            'Investment', 
+            'Buy a Home', 
+            'Buy a Car', 
+            'Emergency Savings', 
+            'Big Purchase'],
+        visible: false,
+        contributionAmount: 0,
+        contributionYears: 0,
+        picked: '',
     }),
     computed: {
-           
-    }
-    ,
+        result: this.contributionAmount * this.contributionYears * this.picked
+    },
     methods: {
-        
+        toggleView() {
+            this.visible = !this.visible
+        },
+        loadResources() {
+
+        }
     }
 }
 </script>

@@ -3,11 +3,12 @@
     <v-main>
       <v-container fixed class='justify-center'>
         <img alt="WalLit Wise logo" src="../assets/WalLitWise.png">
-        <h1 v-if="!visible" class="mb-8">{{msg}}</h1>
-        <h2 v-if="visible">Let us help you save</h2>
-        <v-btn primary @click="clickForVisible" v-if="!visible" class="mt-4">Proceed</v-btn>
+        <h1 class="mb-8">Let us help you save</h1>
+        <v-card v-if="!visible">
+          <v-list-item>Savings Calculator</v-list-item>
+          <v-btn primary @click="clickForVisible" class="mt-4">Proceed</v-btn>
+        </v-card>
         <SavingsCalculator v-if="isVisible" />
-        <SavingResults v-if="resultAvailable"/>
       </v-container>
     </v-main>
   </v-app>
@@ -15,32 +16,20 @@
 
 <script>
 import SavingsCalculator from './SavingsCalculator.vue'
-import SavingResults from './SavingResults.vue'
 
 export default {
   name: 'main',
-  props: {
-    msg: String,
-  },
   components: {
-    SavingsCalculator,
-    SavingResults
+    SavingsCalculator
   },
   data () {
     return {
       visible: false,
-      isVisible: false,
-      resultAvailable: false,
+      isVisible: false
     }
   },
-  computed: {
-    
-  },
+  
   methods: {
-    onChildClick (value) {
-      this.isVisible = !this.isVisible
-      this.resultFromChild = value
-    },
     clickForVisible () {
       this.visible = !this.visible
       this.isVisible = !this.isVisible

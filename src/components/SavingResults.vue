@@ -59,7 +59,7 @@ export default {
             this.expanded = !this.expanded
         },
         loadResources () {
-            this.$store.actions.loadResources
+            //need to implement links
         }
     }
 }

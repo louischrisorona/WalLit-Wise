@@ -1,11 +1,11 @@
 <template>
     <v-container fixed>
-    <v-card v-if="!visible" class="calculator justify-center">
+    <v-card v-if="!visible" class="calculator justify-center" style="background-color: #EFEFEF;">
         <v-form>
             <v-input>
                 <v-list-item>
                     <v-list-item-content fluid>
-                        <v-list-item-title class="headline text-center">
+                        <v-list-item-title class="headline text-center pt-4">
                             Calculator Savings Tool
                         </v-list-item-title>
                         <v-list-item-subtitle class="text-bold text-center my-6">Estimate your savings</v-list-item-subtitle>
@@ -16,91 +16,118 @@
                             :items="goals"
                             :value="goals.value"
                             v-model="selectedGoal"
-                            dense
                             solo
                             label="Select One"
                             class="px-4"
                             ></v-select>
 
+
                             <v-list-item>Contribution Amount:</v-list-item>
                             <v-text-field
-                                value="0"
-                                prepend-inner="$"
+                                value="$0"
+                                prepend-inner-icon="mdi-currency-usd"
                                 v-model="contributionAmount"
-                                type="number" 
-                                min="1" 
-                                max="500"
+                                type="text" 
                                 class="px-4"
+                                hint="Max $500"
+                                solo
                             ></v-text-field>
-                            
-                            Max $500
                         </v-row>
                         <v-list-item>Contribution Frequency:</v-list-item>
-                        <v-radio-group class="" v-model='picked'>
-                            <v-row two-line class="mx-auto radio-selection">
+                        <v-radio-group class="radio-container" v-model='picked'>
+                            <v-row class="radio-selection">
                                 <v-col>
                                     <v-radio label="Daily" id="daily" value='365'></v-radio>
                                     <!-- v-bind:value="365" -->
                                     <v-radio label="Weekly" id="weekly" value='52'></v-radio>
-                                </v-col>
                                 
-                                <v-col>
                                     <v-radio label="Bi-Weekly" id="biweekly" value='104'></v-radio>
                                     <v-radio label="Monthly" id="monthly" value='12'></v-radio>
                                 </v-col>
                             </v-row>
                         </v-radio-group>
                         
-                        <v-list-item>Years of contribution</v-list-item>
+                        <v-list-item>Years of contribution:</v-list-item>
                         <v-row>
-                            <v-text-field v-model="contributionYears" type="number" min="1" max="10"></v-text-field>                        
-                            <v-list-item-subtitle class="px-4">Max: 10 years</v-list-item-subtitle>
-                            <v-btn @click="toggleView">Calculate</v-btn>
+                            <v-text-field 
+                                v-model="contributionYears"
+                                type="text"
+                                hint="Max 10 years"
+                                class="px-4"
+                                solo
+                                ></v-text-field>                        
                         </v-row>
+                        <v-btn
+                             large
+                             class="mx-auto secondary--text"
+                             color="primary"
+                             max-width="227px"
+                             @click="toggleView"
+                        >
+                        Calculate
+                        </v-btn>
                     </v-list-item-content>
                 </v-list-item>
             </v-input>
         </v-form>
     </v-card>
 
+
+
+
+
+
 <!-- Card --- mock component for results -->
+
+
+
+
     <v-card v-if="visible" class="results justify-center">
         <v-list-item>
             <v-list-item-content fluid>
-                <v-list-item-title class="headline text-center">
+                <h1 class=" text-center mb-2 mt-6">
                     Results
-                </v-list-item-title>
+                </h1>
                 
-                <v-row justify="space-around" class="ma-2">
+                <v-row justify="space-around" class="ma-2 my-4">
                     <v-avatar ma-auto size=125>
                         <img src="../assets/retirement.jpg" alt="couple hiking through retirement">
                     </v-avatar>
-                    <v-list-item-subtitle class="mt-3"><a href="#">EDIT</a></v-list-item-subtitle>
                 </v-row>
-                <v-row class="mx-auto" justify="center">
-                    <h2 class="headline"><strong>Goal: {{ selectedGoal }} </strong></h2>
+                    <h2 class="headline my-2"><strong>Goal: {{ selectedGoal }} </strong></h2>
+                    <v-list-item-subtitle class="my-2 py-2"><a class="secondary--text text-decoration-underline" @click=toggleView>EDIT: CONTRIBUTION GOAL</a></v-list-item-subtitle>
+                
+                
                         
-                    <h4 class="ma-2 pa-2">
+                    <h2 style="font-size: 24px;" class="ma-2">
                         Breakdown
-                    </h4>
-                    
-                    <v-list-item-group class="">
-                        <v-list-item>Contribution Amount: <span class="text-decoration-underline">{{ contributionAmount }}</span></v-list-item>
-                        <v-list-item>Contribution Frequency: <span class="text-decoration-underline">x {{ picked }} ({{ frequency }})</span></v-list-item>
-                        <v-list-item>Years of Contribution: <span class="text-decoration-underline">x {{ contributionYears }}</span></v-list-item>
+                    </h2>
+                    <!-- ************************************************************************************** -->
+                    <!-- FIGURE OUT THE SPACING OF THE ELEMENTS TO RIGHT ALIGN P TAG -->
+                    <!-- TRY USING ROW WITH 'D-FLEX & JUSTIFY HELPERS' -->
+
+
+                    <v-list-item-group style="width: 100%;" class="my-2 mx-7">                        
+                        <v-list-item class="d-flex justify-space-between py-0 my-0" style="min-height: 16px; font-size: 0.875rem;">Contribution Amount: <p style="width: 109px; border-bottom: 1px solid black; font-size: 16px; min-height: 16px;" class="my-4 ml-12">{{ contributionAmount }}</p></v-list-item>
+                        <v-list-item class="d-flex justify-space-between py-0 my-0" style="min-height: 16px; font-size: 0.875rem;">Contribution Frequency: <p style="width: 109px; border-bottom: 1px solid black; font-size: 16px; min-height: 16px;" class="my-4 ml-12">x {{ frequency }}</p></v-list-item>
+                        <v-list-item class="d-flex justify-space-between py-0 my-0" style="min-height: 16px; font-size: 0.875rem;">Years of Contribution: <p style="width: 109px; border-bottom: 1px solid black; font-size: 16px; min-height: 16px;" class="my-4 ml-12">x {{ contributionYears }}</p></v-list-item>
                     </v-list-item-group>
 
-                </v-row>
                 
-                <v-list-item>
-                    <h2 class="headline">${{ this.result }}</h2>
-                </v-list-item>
+                    <h2 style="font-weight: 700; font-size: 32px;" >${{ Number(this.result).toLocaleString() }}</h2>
 
-                <v-list-item>Estimate Savings</v-list-item>
+                <v-list-item class="d-flex justify-center" style="font-size: 24px;">Estimate Savings</v-list-item>
 
-                <v-list-item>Financial education resources to help you jump start your savings</v-list-item>
+                <v-list-item class="d-flex text-justify mx-auto mt-10" style="max-width: 285px; font-size: 16px; font-weight: 600; line-height: 21px;">Financial education resources to help you jump start your savings</v-list-item>
 
-                <v-btn @click="loadResources">LEARN MORE</v-btn>
+                <v-btn
+                    large
+                    class="mx-auto secondary--text my-10"
+                    color="primary"
+                    max-width="227px"
+                >
+                        LEARN MORE
+                        </v-btn>
 
             </v-list-item-content>
         </v-list-item>
@@ -166,11 +193,20 @@ export default {
     background-color: #C4C4C4;
 }
 
-.radio-selection {
-    margin: 0 auto;
-    padding: auto;
+.radio-container {
+    width: 285px;
     justify-content: space-between;
 }
+
+.radio-selection {
+    margin: 0 auto;
+    padding-right: 67px;
+}
+
+.v-btn__content {
+    color: #1A2C5B;
+}
+
 
 #calculateBtn {
     margin: 0 auto;

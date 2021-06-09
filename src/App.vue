@@ -21,12 +21,12 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
+  color: #1A2C5B;
 }
 
 .container {
-  max-width: 720px;
+  max-width: 375px;
 }
 
 .logo {
@@ -35,5 +35,9 @@ export default {
   left: 0.5%;
   margin: 0;
   padding: 0;
+}
+
+button > span {
+  color: #1a2c5b;
 }
 </style>

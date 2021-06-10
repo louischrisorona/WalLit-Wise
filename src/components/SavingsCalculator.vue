@@ -34,11 +34,11 @@
                             ></v-text-field>
                         </v-row>
                         <v-list-item>Contribution Frequency:</v-list-item>
+                        
                         <v-radio-group class="radio-container" v-model='picked'>
                             <v-row class="radio-selection">
                                 <v-col>
                                     <v-radio label="Daily" id="daily" value='365'></v-radio>
-                                    <!-- v-bind:value="365" -->
                                     <v-radio label="Weekly" id="weekly" value='52'></v-radio>
                                 
                                     <v-radio label="Bi-Weekly" id="biweekly" value='104'></v-radio>
@@ -82,7 +82,7 @@
 
 
 
-    <v-card v-if="visible" class="results justify-center">
+    <v-card v-if="isVisible" class="results justify-center" style="background-color: #EFEFEF;">
         <v-list-item>
             <v-list-item-content fluid>
                 <h1 class=" text-center mb-2 mt-6">
@@ -125,6 +125,7 @@
                     class="mx-auto secondary--text my-10"
                     color="primary"
                     max-width="227px"
+                    @click="loadResources"
                 >
                         LEARN MORE
                         </v-btn>
@@ -134,10 +135,31 @@
     </v-card>
 
 <!-- Card --- mock component for learning resources/links -->
-    <v-card v-if="visible">
-        <!-- add links here -->
-    </v-card>
+    <v-card v-if="learnMore" style="background-color: #EFEFEF;">
+        <v-list-item-content>
 
+
+            <h2 class="text-center mb-2 mt-6">
+                    Financial Resources
+            </h2>
+            <v-list-item></v-list-item>
+            <v-row class="mx-auto pa-auto">
+                <v-list-item>
+                    <a class="secondary--text text-decoration-underline" href="https://www.irs.gov/retirement-plans/individual-retirement-arrangements-iras">Individual Retirement Account</a>
+                </v-list-item>
+                <v-list-item>
+                    <a class="secondary--text text-decoration-underline" href="https://www.investopedia.com/terms/1/401kplan.asp">401K Plan</a>
+                </v-list-item>
+                <v-list-item>
+                    <a class="secondary--text text-decoration-underline" href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account.html">Tax-Free Savings Account</a>
+                </v-list-item>
+                <v-list-item>
+                    <a class="secondary--text text-decoration-underline" href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/registered-retirement-savings-plan-rrsp.html">Registered Retirement Savings Plan</a>
+                </v-list-item>
+            </v-row>
+        </v-list-item-content>
+    </v-card>
+    <a class="secondary--text text-decoration-udnerline" href="#">About Us</a>
     </v-container>
 </template>
 
@@ -154,6 +176,9 @@ export default {
             {text: 'Big Purchase', value: 'Big Purchase'}
             ],
         visible: false,
+        isVisible: false,
+        learnMore: false,
+        about: false,
         contributionAmount: '',
         contributionYears: '',
         picked: '',
@@ -176,12 +201,16 @@ export default {
         },
         toggleView() {
             this.visible = !this.visible
+            this.isVisible = !this.isVisible
             this.calculateResults()
         },
         loadResources() {
-
+            this.isVisible = !this.isVisible
+            this.learnMore = !this.learnMore
         },
-        
+        toggleAbout() {
+            //need to toggle our info
+        }
     }
 }
 </script>

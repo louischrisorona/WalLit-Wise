@@ -5,7 +5,7 @@
         <img alt="WalLit Wise logo" src="../assets/WalLitWise.png">
         <h1 class="mb-8">Let us help you save</h1>
         <v-card v-if="!visible" style="background-color: #EFEFEF;">
-          <v-list-item class="pt-4 pb-8 large" style="justify-content: center;">Savings Calculator</v-list-item>
+          <h2 class="text-center mb-2 mt-6" style="font-weight: 700;">Savings Calculator</h2>
           <v-btn color=primary @click="clickForVisible" class="ma-4 secondary--text">Proceed</v-btn>
         </v-card>
         <SavingsCalculator v-if="isVisible" />

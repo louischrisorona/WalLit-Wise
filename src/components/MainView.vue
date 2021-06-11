@@ -10,6 +10,7 @@
         </v-card>
         <SavingsCalculator v-if="isVisible" />
       </v-container>
+      
     </v-main>
   </v-app>
 </template>
@@ -33,7 +34,7 @@ export default {
     clickForVisible () {
       this.visible = !this.visible
       this.isVisible = !this.isVisible
-    }
+    },
   },
 }
 </script>

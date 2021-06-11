@@ -25,7 +25,7 @@
                             <v-list-item>Contribution Amount:</v-list-item>
                             <v-text-field
                                 value="$0"
-                                prepend-inner-icon="mdi-currency-usd"
+                                prepend-inner-icon="mdi-currency-usd" color="#1A2C5B"
                                 v-model="contributionAmount"
                                 type="text" 
                                 class="px-4"
@@ -38,11 +38,11 @@
                         <v-radio-group class="radio-container" v-model='picked'>
                             <v-row class="radio-selection">
                                 <v-col>
-                                    <v-radio label="Daily" id="daily" value='365'></v-radio>
-                                    <v-radio label="Weekly" id="weekly" value='52'></v-radio>
+                                    <v-radio color="#1A2C5B" label="Daily" id="daily" value='365'></v-radio>
+                                    <v-radio color="#1A2C5B" label="Weekly" id="weekly" value='52'></v-radio>
                                 
-                                    <v-radio label="Bi-Weekly" id="biweekly" value='104'></v-radio>
-                                    <v-radio label="Monthly" id="monthly" value='12'></v-radio>
+                                    <v-radio color="#1A2C5B" label="Bi-Weekly" id="biweekly" value='104'></v-radio>
+                                    <v-radio color="#1A2C5B" label="Monthly" id="monthly" value='12'></v-radio>
                                 </v-col>
                             </v-row>
                         </v-radio-group>
@@ -159,11 +159,12 @@
             </v-row>
         </v-list-item-content>
     </v-card>
-    <a class="secondary--text text-decoration-udnerline" href="#">About Us</a>
+    <About />
     </v-container>
 </template>
 
 <script>
+import About from './About'
 
 export default {
     data: () => ({
@@ -185,6 +186,9 @@ export default {
         selectedGoal: '',
         result: 0
     }),
+    components: {
+        About,
+    },
     computed: {
         frequency() {
             if(this.picked == 12) return 'Monthly'
